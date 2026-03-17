@@ -1,0 +1,1050 @@
+/* ================================================
+   TAKTSTOCK - Glassmorphism Premium Design System
+   ================================================ */
+
+:root {
+    --bg-primary: #a0a0a0;
+    --bg-secondary: #959595;
+    --bg-tertiary: #8a8a8a;
+    --text-primary: #1a1a1a;
+    --text-secondary: #333333;
+    --text-dim: #5a5a5a;
+    --accent: #111111;
+    --border: rgba(0, 0, 0, 0.12);
+
+    /* Glassmorphism tokens - strong frosted glass */
+    --glass-bg: rgba(255, 255, 255, 0.55);
+    --glass-bg-hover: rgba(255, 255, 255, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.6);
+    --glass-border-hover: rgba(255, 255, 255, 0.85);
+    --glass-blur: 30px;
+    --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    --glass-shadow-hover: 0 16px 48px rgba(0, 0, 0, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+    --glass-glow-1: rgba(180, 180, 180, 0.35);
+    --glass-glow-2: rgba(160, 160, 160, 0.30);
+    --glass-glow-3: rgba(140, 140, 140, 0.25);
+
+    --font-heading: 'Syne', sans-serif;
+    --font-body: 'Manrope', sans-serif;
+    --font-mono: 'Space Mono', monospace;
+    --easing: cubic-bezier(0.25, 1, 0.5, 1);
+    --easing-smooth: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+::selection {
+    background: rgba(100, 100, 100, 0.3);
+    color: #1a1a1a;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 1.6;
+    overflow-x: hidden;
+    width: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    position: relative;
+}
+
+/* Background ambient glow orbs - vibrant for contrast with glass */
+body::before,
+body::after {
+    content: '';
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(100px);
+    z-index: 0;
+    pointer-events: none;
+}
+
+body::before {
+    width: 700px;
+    height: 700px;
+    background: var(--glass-glow-1);
+    opacity: 0.8;
+    top: -150px;
+    left: -150px;
+    animation: glowDrift1 18s ease-in-out infinite alternate;
+}
+
+body::after {
+    width: 600px;
+    height: 600px;
+    background: var(--glass-glow-2);
+    opacity: 0.7;
+    bottom: -100px;
+    right: -100px;
+    animation: glowDrift2 22s ease-in-out infinite alternate;
+}
+
+@keyframes glowDrift1 {
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    50% {
+        transform: translate(80px, 60px) scale(1.1);
+    }
+
+    100% {
+        transform: translate(-40px, 120px) scale(0.95);
+    }
+}
+
+@keyframes glowDrift2 {
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    50% {
+        transform: translate(-60px, -80px) scale(1.15);
+    }
+
+    100% {
+        transform: translate(50px, -40px) scale(0.9);
+    }
+}
+
+/* Third ambient glow using main element */
+main {
+    position: relative;
+    z-index: 1;
+}
+
+main::before {
+    content: '';
+    position: fixed;
+    width: 550px;
+    height: 550px;
+    background: var(--glass-glow-3);
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    filter: blur(90px);
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.7;
+    animation: glowDrift3 15s ease-in-out infinite alternate;
+}
+
+@keyframes glowDrift3 {
+    0% {
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    100% {
+        transform: translate(-40%, -60%) scale(1.2);
+    }
+}
+
+/* ================================================
+   TYPOGRAPHY
+   ================================================ */
+h1,
+h2,
+h3,
+h4 {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    text-transform: uppercase;
+    line-height: 0.95;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 5vw;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+}
+
+/* ================================================
+   HEADER - Glassmorphism
+   ================================================ */
+.site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 1.5rem 5vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+    transition: all 0.5s ease;
+}
+
+.site-header.scrolled {
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    padding: 1rem 5vw;
+    border-bottom: 1px solid var(--glass-border);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.site-header nav {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Logo */
+.logo {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+    position: relative;
+    z-index: 101;
+}
+
+.logo-text {
+    color: var(--text-primary);
+}
+
+/* Nav Items */
+.menu-items {
+    display: flex;
+    align-items: center;
+}
+
+.menu-items a {
+    margin-left: 2rem;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-weight: 700;
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    color: var(--text-secondary);
+    transition: color 0.3s ease;
+    padding-bottom: 4px;
+}
+
+.menu-items a:hover {
+    color: var(--text-primary);
+}
+
+.menu-items a::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(100, 100, 100, 0.4), transparent);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.5s var(--easing);
+}
+
+.menu-items a:hover::before {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+/* Hamburger */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 6px;
+    cursor: pointer;
+    z-index: 101;
+    padding: 10px;
+    background: transparent;
+    border: none;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.menu-toggle:hover {
+    background: transparent;
+}
+
+.menu-toggle span {
+    width: 28px;
+    height: 2px;
+    background: var(--text-primary);
+    transition: transform 0.4s var(--easing), opacity 0.3s ease;
+    transform-origin: center;
+    border-radius: 2px;
+    display: block;
+}
+
+.menu-toggle.active span:first-child {
+    transform: translateY(4px) rotate(45deg);
+}
+
+.menu-toggle.active span:last-child {
+    transform: translateY(-4px) rotate(-45deg);
+}
+
+/* Mobile Menu - Glassmorphism */
+.mobile-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(50px);
+    -webkit-backdrop-filter: blur(50px);
+    z-index: 99;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+}
+
+.mobile-menu.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.mobile-menu a {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 6px;
+    color: var(--text-secondary);
+    transition: color 0.3s ease, letter-spacing 0.3s ease;
+    transform: translateY(30px);
+    opacity: 0;
+}
+
+.mobile-menu.active a {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.mobile-menu a:nth-child(1) {
+    transition-delay: 0.1s;
+}
+
+.mobile-menu a:nth-child(2) {
+    transition-delay: 0.2s;
+}
+
+.mobile-menu a:nth-child(3) {
+    transition-delay: 0.3s;
+}
+
+.mobile-menu a:nth-child(4) {
+    transition-delay: 0.4s;
+}
+
+.mobile-menu a:hover {
+    color: var(--text-primary);
+    letter-spacing: 10px;
+}
+
+/* ================================================
+   HERO SECTION
+   ================================================ */
+.hero-section {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    padding-top: 60px;
+}
+
+.hero-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: heroFadeIn 1s ease-out 0.2s both;
+}
+
+@keyframes heroFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hero-title-wrap {
+    overflow: visible;
+    position: relative;
+    width: 100%;
+    max-width: 100vw;
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+.hero-title {
+    font-size: clamp(2rem, 7vw, 6.5rem);
+    /* Scaled down slightly to prevent overflow */
+    letter-spacing: clamp(0.05em, 1.5vw, 0.25em);
+    color: var(--text-primary);
+    position: relative;
+    line-height: 1.1;
+    margin: 0;
+    padding: 0.1em;
+    text-shadow: 0 0 60px rgba(100, 100, 100, 0.08), 0 0 120px rgba(80, 80, 80, 0.04);
+    user-select: none;
+    white-space: nowrap;
+    max-width: 100%;
+    /* 4-on-the-floor kick pulse at ~120 BPM (0.5s per beat) */
+    animation: kickPulse 0.5s ease-in-out infinite;
+}
+
+@keyframes kickPulse {
+    0% {
+        transform: scale(1);
+        text-shadow: 0 0 60px rgba(100, 100, 100, 0.08), 0 0 120px rgba(80, 80, 80, 0.04);
+    }
+
+    15% {
+        transform: scale(1.008);
+        text-shadow: 0 0 30px rgba(70, 70, 70, 0.12), 0 0 60px rgba(70, 70, 70, 0.06);
+    }
+
+    40% {
+        transform: scale(0.998);
+        text-shadow: 0 0 60px rgba(100, 100, 100, 0.08);
+    }
+
+    100% {
+        transform: scale(1);
+        text-shadow: 0 0 60px rgba(100, 100, 100, 0.08), 0 0 120px rgba(80, 80, 80, 0.04);
+    }
+}
+
+/* hover animation removed - always 4-on-the-floor only */
+
+/* Mail icon */
+.mail-icon {
+    flex-shrink: 0;
+    transition: transform 0.3s var(--easing);
+}
+
+.huge-link:hover .mail-icon {
+    transform: scale(1.1);
+}
+
+.hero-subtitle {
+    margin-top: 2rem;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 6px;
+    color: var(--text-dim);
+    font-weight: 400;
+    font-family: var(--font-mono);
+    animation: heroFadeIn 1s ease-out 0.6s both;
+}
+
+/* Scroll Indicator */
+.scroll-indicator {
+    position: relative;
+    margin-top: 4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+    animation: heroFadeIn 1s ease-out 1.2s both;
+}
+
+.scroll-indicator span {
+    font-size: 0.7rem;
+    letter-spacing: 4px;
+    color: var(--text-primary);
+    font-weight: 700;
+    font-family: var(--font-mono);
+}
+
+.scroll-line {
+    width: 2px;
+    height: 50px;
+    background: linear-gradient(to bottom, var(--text-primary), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+}
+
+@keyframes scrollPulse {
+
+    0%,
+    100% {
+        opacity: 0.3;
+        transform: scaleY(0.5);
+        transform-origin: top;
+    }
+
+    50% {
+        opacity: 1;
+        transform: scaleY(1);
+        transform-origin: top;
+    }
+}
+
+/* ================================================
+   SECTION COMMON
+   ================================================ */
+.section-header {
+    margin-bottom: 4rem;
+    position: relative;
+}
+
+.section-title {
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+    position: relative;
+    display: inline-block;
+    letter-spacing: 0.2em;
+    font-weight: 700;
+}
+
+.section-line {
+    width: 140px;
+    height: 3px;
+    background: linear-gradient(90deg, rgba(80, 80, 80, 0.8), rgba(150, 150, 150, 0.5));
+    border-radius: 3px;
+}
+
+/* ================================================
+   GLASSMORPHISM BASE CARDS
+   ================================================ */
+.glass-panel {
+    background: rgba(255, 255, 255, 0.15);
+    /* More transparent */
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 24px;
+    padding: 3.5rem;
+    backdrop-filter: blur(45px) saturate(1.4);
+    /* Stronger frost */
+    -webkit-backdrop-filter: blur(45px) saturate(1.4);
+    box-shadow:
+        0 15px 40px rgba(0, 0, 0, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.5),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.05);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.5s var(--easing);
+}
+
+/* Top highlight edge for realism */
+.glass-panel::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 5%;
+    right: 5%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.9), transparent);
+    pointer-events: none;
+    z-index: 2;
+}
+
+/* Inner ambient glow */
+.glass-panel::after {
+    content: '';
+    position: absolute;
+    top: -30%;
+    left: -20%;
+    width: 140%;
+    height: 140%;
+    background: radial-gradient(ellipse at 25% 15%, rgba(180, 180, 180, 0.07), transparent 55%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* hover glow removed */
+
+/* ================================================
+   ABOUT SECTION - Glassmorphism Cards
+   ================================================ */
+.about-section {
+    padding: 5vh 0;
+}
+
+/* Mouse Trail Canvas */
+#trail-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+.about-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    align-items: start;
+}
+
+.bio {
+    position: relative;
+    z-index: 1;
+}
+
+.bio p {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+    font-weight: 400;
+    line-height: 1.8;
+    color: var(--text-primary);
+    position: relative;
+    z-index: 1;
+}
+
+.bio p:last-child {
+    margin-bottom: 0;
+}
+
+
+
+/* ================================================
+   GALLERY SECTION - Glassmorphism
+   ================================================ */
+.gallery-section {
+    padding: 5vh 0;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+}
+
+.gallery-item {
+    aspect-ratio: 1/1;
+    position: relative;
+    overflow: hidden;
+    border-radius: 20px;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    box-shadow: var(--glass-shadow);
+    transition: all 0.5s var(--easing);
+}
+
+/* Coming Soon gallery items */
+.gallery-coming-soon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: default;
+}
+
+.gallery-coming-soon span {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 4px;
+    color: var(--text-dim);
+    font-weight: 700;
+    text-transform: uppercase;
+    opacity: 0.6;
+}
+
+.gallery-item:hover {
+    border-color: var(--glass-border-hover);
+    background: rgba(255, 255, 255, 0.6);
+    box-shadow: var(--glass-shadow-hover), 0 0 40px rgba(150, 150, 150, 0.08);
+    transform: translateY(-8px);
+}
+
+.gallery-item-inner {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center top;
+    transition: transform 0.6s var(--easing);
+    border-radius: 15px;
+}
+
+.gallery-item:hover .gallery-item-inner {
+    transform: scale(1.08);
+}
+
+/* 3枚目と6枚目に控えめなブラー */
+.gallery-item:nth-child(3) .gallery-item-inner,
+.gallery-item:nth-child(6) .gallery-item-inner {
+    filter: blur(1.5px);
+}
+
+/* Gallery item hover shimmer */
+.gallery-item::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, 0.03),
+            transparent);
+    transition: left 0.7s var(--easing);
+    border-radius: 15px;
+    pointer-events: none;
+}
+
+.gallery-item:hover::after {
+    left: 100%;
+}
+
+/* ================================================
+   CONTACT SECTION - Glassmorphism
+   ================================================ */
+.contact-section {
+    padding: 5vh 0 3vh;
+    border-top: none;
+}
+
+.contact-content {
+    margin: 0 0 2rem;
+    position: relative;
+    z-index: 1;
+}
+
+.contact-cta {
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+    font-weight: 300;
+    line-height: 1.8;
+    margin-bottom: 3rem;
+    position: relative;
+    z-index: 1;
+}
+
+.huge-link {
+    font-family: var(--font-heading);
+    font-size: clamp(1rem, 2vw, 1.4rem);
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    transition: letter-spacing 0.5s var(--easing), color 0.3s ease;
+    word-break: break-all;
+    color: var(--text-primary);
+    position: relative;
+    padding: 0.5rem 0;
+    border-bottom: none;
+    z-index: 1;
+}
+
+.huge-link:hover {
+    letter-spacing: 0.15em;
+}
+
+.link-arrow {
+    font-size: 1.5rem;
+    transition: transform 0.4s var(--easing);
+}
+
+.huge-link:hover .link-arrow {
+    transform: translateX(10px);
+}
+
+/* ================================================
+   SITE FOOTER
+   ================================================ */
+.site-footer {
+    text-align: center;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: var(--text-secondary);
+    letter-spacing: 2px;
+    padding: 2.5rem 0;
+    position: relative;
+    z-index: 1;
+}
+
+.socials a {
+    margin-left: 2.5rem;
+    color: var(--text-dim);
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+}
+
+.socials a:hover {
+    color: var(--text-primary);
+    text-shadow: 0 0 10px rgba(100, 100, 100, 0.15);
+}
+
+/* ================================================
+   SCROLL REVEAL - Dynamic IntersectionObserver Driven
+   ================================================ */
+
+/* --- Section level: slide up + fade --- */
+.reveal {
+    opacity: 0;
+    transform: translateY(60px);
+    transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+}
+
+.reveal.revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* --- Glass panel: scale up + blur reveal --- */
+.reveal-panel {
+    opacity: 0;
+    transform: scale(0.96) translateY(20px);
+    filter: blur(8px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.15s,
+        transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.15s,
+        filter 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.15s;
+}
+
+.revealed .reveal-panel {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    filter: blur(0);
+}
+
+/* --- Section title: clip-path wipe reveal --- */
+.reveal-title {
+    clip-path: inset(0 100% 0 0);
+    transition: clip-path 0.7s cubic-bezier(0.65, 0, 0.35, 1) 0.35s;
+}
+
+.revealed .reveal-title {
+    clip-path: inset(0 0% 0 0);
+}
+
+/* --- Section line: expand from left --- */
+.reveal-line {
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1) 0.55s;
+}
+
+.revealed .reveal-line {
+    transform: scaleX(1);
+}
+
+/* --- Stagger children: individual items fade + slide up --- */
+.stagger-item {
+    opacity: 0;
+    transform: translateY(25px);
+    filter: blur(4px);
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+        filter 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.stagger-item.revealed {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+
+    .reveal,
+    .reveal-panel,
+    .reveal-title,
+    .reveal-line,
+    .stagger-item {
+        opacity: 1;
+        transform: none;
+        filter: none;
+        clip-path: none;
+        transition: none;
+    }
+}
+
+/* ================================================
+   RESPONSIVE
+   ================================================ */
+@media (max-width: 768px) {
+    .site-header {
+        padding: 1.2rem 1.5rem;
+    }
+
+    .site-header.scrolled {
+        padding: 0.8rem 1.5rem;
+    }
+
+    .menu-items {
+        display: none;
+    }
+
+    .menu-toggle {
+        display: flex;
+    }
+
+    .hero-title-wrap {
+        padding: 0 1rem;
+    }
+
+    .hero-title {
+        font-size: clamp(1.8rem, 8vw, 3.5rem);
+        letter-spacing: 0.08em;
+        white-space: nowrap;
+    }
+
+    .container {
+        padding: 0 5vw;
+    }
+
+    .glass-panel {
+        padding: 2rem;
+        border-radius: 16px;
+    }
+
+    .section-header {
+        margin-bottom: 2.5rem;
+    }
+
+    .about-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.8rem;
+    }
+
+    .gallery-item {
+        border-radius: 12px;
+    }
+
+    .gallery-coming-soon span {
+        font-size: 0.6rem;
+        letter-spacing: 2px;
+    }
+
+    .bio {
+        padding: 0;
+    }
+
+    .bio p {
+        font-size: 0.9rem;
+    }
+
+    .contact-content {
+        padding: 0;
+    }
+
+    .section-title {
+        font-size: clamp(1.3rem, 6vw, 2.5rem);
+    }
+
+    .huge-link {
+        font-size: 0.85rem;
+        gap: 0.6rem;
+        flex-wrap: wrap;
+    }
+
+    .contact-cta {
+        font-size: 0.9rem;
+    }
+
+    .site-footer {
+        padding: 2rem 0;
+    }
+
+    .scroll-indicator {
+        display: flex;
+        transform: scale(0.85);
+        margin-top: 3rem;
+    }
+
+    /* Reduce ambient glow on mobile for perf */
+    body::before {
+        width: 400px;
+        height: 400px;
+        opacity: 0.6;
+    }
+
+    body::after {
+        width: 350px;
+        height: 350px;
+        opacity: 0.5;
+    }
+}
+
+@media (max-width: 480px) {
+    .site-header {
+        padding: 1rem 1rem;
+    }
+
+    .hero-title-wrap {
+        padding: 0 0.5rem;
+    }
+
+    .hero-title {
+        font-size: clamp(1.2rem, 9.5vw, 2rem);
+        letter-spacing: 0.04em;
+    }
+
+    .gallery-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .glass-panel {
+        padding: 1.5rem;
+        border-radius: 12px;
+    }
+
+    .huge-link {
+        font-size: 0.75rem;
+        word-break: break-all;
+    }
+
+    .mail-icon {
+        width: 20px;
+        height: 20px;
+    }
+
+    .footer-bottom,
+    .site-footer {
+        font-size: 0.65rem;
+    }
+}
